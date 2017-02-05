@@ -3,39 +3,41 @@ from sys import argv
 from googlevoice import Voice
 from googlevoice.util import LoginError
 
-# change in production
-from serupbot.settings.nick import EMAIL_PASSWORD, EMAIL_HOST_USER
+# E-mail SMTP settings
+with open('/home/nick/dev/prv/serupbot/email_password.txt') as email_password:
+    password = email_password.read().strip()
 
 
 def send(number, message):
     
-    user = EMAIL_HOST_USER
-    password = EMAIL_PASSWORD
+    USERNAME = 'nicorellius.mail'
+    PASSWORD = password
     
     voice = Voice()
     
     try:
-        voice.login(user, password)
+        voice.login(USERNAME, PASSWORD)
         
-    except LoginError, e:
-        print("error logging into sms server: {0}".format(str(e)))
+    except LoginError as e:
+        print("Error logging into SMS server: {0}".format(str(e)))
     
     # number = input('Number to send message to: ')
     # message = input('Message text: ')
     
-    try:
-        voice.send_sms(number, message)
+    # try:
+
+    voice.send_sms(number, message)
         
-    except Exception, e:
-        print('phone number or message error, skipping sms... {0}'.format(str(e)))
-        print('continuing without sending sms...')
+    # except Exception as e:
+    #     print('Phone number or message error, skipping SMS: {0}'.format(str(e)))
+    #     print('Continuing without sending SMS...')
 
     
-# for testing this script can be run at the terminal with args
+# For testing this program can be run at the terminal with args
 if __name__ == '__main__':
     
     if len(argv) != 3:
-        print('wrong number of arguments.')
+        print('Incorrect number of arguments.')
         
     else:
         send(argv[1], argv[2])

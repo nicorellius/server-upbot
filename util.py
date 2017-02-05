@@ -1,20 +1,14 @@
-"""
-file        :   util.py
-date        :   2014-0223
-module      :   common
-classes     :   
-desription  :   common uitlity tools and functions
-"""
+"""util.py: utility functions for project."""
  
 import datetime
 
 
-"""
-get time in format I like
-
-"""
 def get_timestamp():
+    """
+    get time in format I like
+
+    """
     
     dt = datetime.datetime.now()
-    timestamp = dt.strftime("%Y-%m%d, %X")
+    timestamp = dt.strftime("%Y-%m-%d, %X")
     return timestamp

@@ -5,14 +5,15 @@
 # import threading
 import smtplib
 
+import urllib.request
+
 from sys import argv
-from urllib.request import urlopen
 from socket import socket
 from time import asctime
 
-from .sendmail import send_mail
-from .sendsms import send
-from .util import get_timestamp
+from sendmail import send_mail
+from sendsms import send
+from util import get_timestamp
 
 
 # class MonitorTimerManager:
@@ -63,14 +64,19 @@ def http_test(server_info):
     :returns: boolean value
     """
 
+    user_agent = ''
+    headers = {'User-Agent': user_agent}
+    request = urllib.request.Request(server_info, None, headers)
+    response = urllib.request.urlopen(request)
+
     try:
-        data = urlopen(server_info).read()
+        data = response.read()
         print('HTTP test successful')
+
+        return data
 
     except Exception as e:
         print('HTTP test error: {0}'.format(str(e)))
-
-    return
 
 
 def server_test(test_type, server_info):
@@ -102,9 +108,9 @@ def server_test(test_type, server_info):
         print('Caught exception: {0}'.format(str(e)))
 
 
-def send_result(test_type, server_info, recipient_email, recipient_phone):
+def send_result(test_type, server_info, recipient_email, recipient_phone=None):
     """
-    send result by email
+    send result to email and (optionally) SMS (phone)
 
     :param test_type: test type, eg, tcp or http
     :param server_info: server ipor hostname with port

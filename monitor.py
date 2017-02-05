@@ -1,8 +1,8 @@
-#! /usr/bin/env python3.6
+#! /usr/bin/env python3
 
 """monitor.py: general purpose yet simple server monitoring routine."""
 
-import threading
+# import threading
 import smtplib
 
 from sys import argv
@@ -28,7 +28,6 @@ from .util import get_timestamp
 
 
 # class MonitorTestManager:
-     # consider using a class here
 
 
 def tcp_test(server_info):
@@ -42,7 +41,7 @@ def tcp_test(server_info):
         cpos = server_info.find(':')
 
     except Exception as e:
-        print('server info exception: {0}'.fomart(str(e)))
+        print('server info exception: {0}'.format(str(e)))
 
     try:
         sock = socket()
@@ -114,7 +113,7 @@ def send_result(test_type, server_info, recipient_email, recipient_phone):
     """
 
     timestamp = get_timestamp()
-    test_result = self.server_test(test_type, server_info)
+    test_result = server_test(test_type, server_info)
 
     try:
         if test_result is not False:
@@ -161,7 +160,7 @@ def send_result(test_type, server_info, recipient_email, recipient_phone):
 if __name__ == '__main__':
 
     if 3 > len(argv) > 4:
-        print('Wrong number of arguments.')
+        print('Incorrect number of arguments.')
 
     elif len(argv) == 3:
         server_test(argv[1], argv[2])

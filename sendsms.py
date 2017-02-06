@@ -1,3 +1,7 @@
+#! /usr/bin/env python3
+
+"""sendsms.py: program for sending SMS."""
+
 from sys import argv
 
 from googlevoice import Voice
@@ -9,6 +13,8 @@ with open('/home/nick/dev/prv/serupbot/email_password.txt') as email_password:
 
 
 def send(number, message):
+
+    # (503) 850-8390
     
     USERNAME = 'nicorellius.mail'
     PASSWORD = password

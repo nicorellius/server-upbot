@@ -4,3 +4,10 @@ packaging==16.8
 PyGoogleVoice==0.5.2
 pyparsing==2.1.10
 six==1.10.0
+
+# todo -- get these
+# selenium
+# flask
+# celery
+# redis
+# postgres

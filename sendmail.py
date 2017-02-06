@@ -1,5 +1,7 @@
 #! /usr/bin/env python3
 
+"""sendmail.py: program for ending email."""
+
 import smtplib
 from sys import argv
 from email.mime.multipart import MIMEMultipart
@@ -10,7 +12,7 @@ from email.utils import formatdate
 with open('/home/nick/dev/prv/serupbot/email_password.txt') as email_password:
     password = email_password.read().strip()
         
-sender = 'admin@basecave.com'
+sender = 'mail@server-upbot.io'
 username = 'nicorellius.mail@gmail.com'
 server = 'smtp.gmail.com:587'
 

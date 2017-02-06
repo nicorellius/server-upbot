@@ -18,10 +18,12 @@ class MonitorTest(unittest.TestCase):
         self.http_url = ''
 
     def test_tcp_test(self):
-        monitor.tcp_test(self.tcp_url)
+        result = monitor.tcp_test(self.tcp_url)
+        self.assertEqual(result, 'success')
 
     def test_http_test(self):
-        assert monitor.http_test(self.http_url)
+        result = monitor.http_test(self.http_url)
+        self.assertEqual(result, 'success')
 
     def test_server_test(self):
         self.fail('Test not written...')

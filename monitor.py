@@ -45,6 +45,7 @@ def tcp_test(server_info):
             sock = socket()
             sock.connect((server_info[:cpos], int(server_info[cpos + 1:])))
             print('\nTCP test successful...\n')
+            return 'success'
 
         except Exception as e:
             print('Socket exception: {0}'.format(str(e)))
@@ -73,7 +74,7 @@ def http_test(server_info):
         data = response.read()
         print('\nHTTP test successful...')
 
-        # return data
+        return 'success'
 
     except Exception as e:
         print('\nHTTP test error: {0}'.format(str(e)))

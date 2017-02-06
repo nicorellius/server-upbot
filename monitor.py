@@ -41,19 +41,19 @@ def tcp_test(server_info):
     try:
         cpos = server_info.find(':')
 
+        try:
+            sock = socket()
+            sock.connect((server_info[:cpos], int(server_info[cpos + 1:])))
+            print('\nTCP test successful...\n')
+
+        except Exception as e:
+            print('Socket exception: {0}'.format(str(e)))
+
     except Exception as e:
-        print('server info exception: {0}'.format(str(e)))
+        print('Server info exception: {0}'.format(str(e)))
 
-    try:
-        sock = socket()
-        sock.connect((server_info[:cpos], int(server_info[cpos + 1:])))
-        # sock.close
-        print('tcp_test successful')
-
-    except Exception as e:
-        print('socket exception: {0}'.format(str(e)))
-
-    return
+    finally:
+        sock.close()
 
 
 def http_test(server_info):
@@ -71,12 +71,12 @@ def http_test(server_info):
 
     try:
         data = response.read()
-        print('HTTP test successful')
+        print('\nHTTP test successful...')
 
-        return data
+        # return data
 
     except Exception as e:
-        print('HTTP test error: {0}'.format(str(e)))
+        print('\nHTTP test error: {0}'.format(str(e)))
 
 
 def server_test(test_type, server_info):
@@ -165,11 +165,16 @@ def send_result(test_type, server_info, recipient_email, recipient_phone=None):
 # for testing this script can be run at the terminal with args
 if __name__ == '__main__':
 
-    if 3 > len(argv) > 4:
-        print('Incorrect number of arguments.')
+    if 3 > len(argv) > 5:
+        print("Incorrect number of arguments...\n"
+              "Required arguments are 'test type' and 'server'.\n"
+              "Optional arguments are 'email' and 'phone' for notifications.")
 
     elif len(argv) == 3:
         server_test(argv[1], argv[2])
 
-    else:
+    elif len(argv) == 4:
         send_result(argv[1], argv[2], argv[3])
+
+    else:
+        send_result(argv[1], argv[2], argv[3], argv[4])

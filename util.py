@@ -11,4 +11,5 @@ def get_timestamp():
     
     dt = datetime.datetime.now()
     timestamp = dt.strftime("%Y-%m-%d, %X")
+
     return timestamp

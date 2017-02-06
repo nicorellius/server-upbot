@@ -11,13 +11,13 @@ from googlevoice.util import LoginError
 with open('/home/nick/dev/prv/serupbot/email_password.txt') as email_password:
     password = email_password.read().strip()
 
+# Google voice accaount for nicorellius.mail: (503) 850-8390
+# USERNAME = 'nicorellius.mail@gmail.com'
+USERNAME = 'nicorellius.mail'
+PASSWORD = password
+
 
 def send(number, message):
-
-    # (503) 850-8390
-    
-    USERNAME = 'nicorellius.mail'
-    PASSWORD = password
     
     voice = Voice()
     
@@ -30,13 +30,12 @@ def send(number, message):
     # number = input('Number to send message to: ')
     # message = input('Message text: ')
     
-    # try:
-
-    voice.send_sms(number, message)
+    try:
+        voice.send_sms(number, message)
         
-    # except Exception as e:
-    #     print('Phone number or message error, skipping SMS: {0}'.format(str(e)))
-    #     print('Continuing without sending SMS...')
+    except Exception as e:
+        print('Phone number or message error, skipping SMS: {0}'.format(str(e)))
+        print('Continuing without sending SMS...')
 
     
 # For testing this program can be run at the terminal with args

@@ -1,48 +1,51 @@
-"""
-tests.py
-"""
+#! /usr/bin/env python3
 
-import sys
+"""tests.py: tests for server-upbot project."""
 
-from django.test import LiveServerTestCase
-
-from selenium import webdriver
+import time
+import unittest
+import monitor
 
 
-class FunctionalTest(LiveServerTestCase):
-
-    @classmethod
-    def setUpClass(cls):
-
-        cls.server_url = ''
-
-        for arg in sys.argv:
-            if 'liveserver' in arg:
-                cls.server_url = 'http://{0}'.format(arg.split('=')[1])
-                return
-
-        super().setUpClass()
-
-        cls.server_url = cls.live_server_url
-
-    @classmethod
-    def tearDownClass(cls):
-
-        if cls.server_url == cls.live_server_url:
-            super().tearDownClass()
+class MonitorTest(unittest.TestCase):
 
     def setUp(self):
-
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(1)
+        self.tcp_url = '8.8.8.8:53'
+        self.http_url = 'http://www.pdxpixel.com'
 
     def tearDown(self):
+        self.tcp_url = ''
+        self.http_url = ''
 
-        self.browser.quit()
+    def test_tcp_test(self):
+        monitor.tcp_test(self.tcp_url)
 
-    def check_for_row_in_list_table(self, row_text):
+    def test_http_test(self):
+        assert monitor.http_test(self.http_url)
 
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
+    def test_server_test(self):
+        self.fail('Test not written...')
 
-        self.assertIn(row_text, [row.text for row in rows])
+    def test_send_result(self):
+        self.fail('Test not written...')
+
+
+# https://docs.python.org/3/library/unittest.html
+# class TestStringMethods(unittest.TestCase):
+#
+#     def test_upper(self):
+#         self.assertEqual('monitor'.upper(), 'MONITOR')
+#
+#     def test_isupper(self):
+#         self.assertTrue('MONITOR'.isupper())
+#         self.assertFalse('Monitor'.isupper())
+#
+#     def test_split(self):
+#         s = 'Server Monitor'
+#         self.assertEqual(s.split(), ['Server', 'Monitor'])
+#         # check that s.split fails when the separator is not a string
+#         with self.assertRaises(TypeError):
+#             s.split(2)
+
+if __name__ == '__main__':
+    unittest.main()
